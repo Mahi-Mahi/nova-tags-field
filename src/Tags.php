@@ -53,6 +53,7 @@ class Tags extends Field
             'multiple' => $multiple,
             'suggestionLimit' => 5,
             'limit' => null,
+            'canCreateTag' => true
         ]);
 
         if (! $this->meta['multiple']) {
@@ -72,7 +73,15 @@ class Tags extends Field
 
         return $this;
     }
+    
+    public function disableTagCreation()
+    {
 
+        $this->withMeta(['canCreateTag' => false]);
+
+        return $this;
+    }
+    
     public function canBeDeselected()
     {
         if ($this->meta['multiple']) {
