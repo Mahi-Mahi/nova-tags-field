@@ -6,6 +6,7 @@ export default {
         suggestionLimit: { required: true },
         limit: { default: null },
         removeOnBackspace: { default: true },
+        canCreateTag: { default: true },
     },
 
     model: {
@@ -50,6 +51,7 @@ export default {
 
     methods: {
         addTag() {
+                
             if (this.newTag.length === 0 || this.tags.includes(this.newTag)) {
                 return;
             }
@@ -126,6 +128,7 @@ export default {
             addTag: this.addTag,
             removeTag: this.removeTag,
             canAddTag: this.canAddTag,
+            canCreateTag: this.canCreateTag,
             selectTag: this.selectTag,
             suggestions: this.suggestions,
             insertSuggestion: this.insertSuggestion,
@@ -144,7 +147,9 @@ export default {
                     }
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        this.addTag();
+                        if ( this.canCreateTag ) {
+                            this.addTag();
+                        }
                     }
                     if(e.key === "ArrowDown" && this.suggestions.length === 1) {
                         this.input = this.suggestions[0];
